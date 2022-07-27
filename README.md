@@ -106,9 +106,16 @@ In the end, the following table was generated.
 
 The last part of the notebook sets up a final dataframe that is in a good format for a relational database.  The format is just a simple table with 4 columns - time of batch records, Trump votes, Biden votes, and state.  In the future I would love to add the district and maybe assign some metadata to that district so I can have more specific data extraction.  Right now I do not have the distric or type information which is a bit disappointing since macro scale data is not as interesting when doing an analysis.  All other summarizies can be derived from this simple data structure.  
 
-### SQL
+### SQL  
 
-With SQL, the following are examples of queries written to extract data from the two tables.  
+The data from the notebook was formatted to show the votes for Biden and Trump as separate records with the philosophy that all future tables could be made from this simple data structure.  Below is an image of what the raw data in the table looks like.  `District` and `Type` (district metadata) are columns I would *love* to add to the data but do not have a source. 
+
+![Vote_counts table](./images/vote_counts_table.png)
+<cite>Fig 5. Table (vote_counts) with Imported Data  
+
+<br>
+
+With SQL, the following are examples of queries written to extract data from the `vote_counts` table.  
 
 One table was generated from a query since this data would be considered very common.  This table ('margin_info') has the following columns:  'batch_id', 'datetime', 'state', 'biden_votes', 'trump_votes', 'batch_margin'.  The main difference in this table compared to the original table is that the data has been pivoted such that instead of having a row of biden data and a row of trump data for the same time period, those values have been put into their own column and the margin difference has also been calculated.  
 
