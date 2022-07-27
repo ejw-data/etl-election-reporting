@@ -1,4 +1,26 @@
+--///////////////////////////////////////////////
+-- Queries for the margin_info table
 
+-- Cumulative/Running total
+with data as (
+	select 
+		datetime as date,
+		count(1)
+	from margin_info
+	group by 1
+	order by date DESC
+)
+select
+	date,
+	sum(count) over (order by date asc rows between unbounded preceding and current row)
+	from data;
+
+-- show vote_counts table
+select * from margin_info
+where state = 'Alabama';
+
+--////////////////////////////////////////////////////
+-- Uses margin_info table
 -- Add Biden votes
 with data as (
 	select 

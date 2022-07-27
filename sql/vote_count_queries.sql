@@ -1,29 +1,5 @@
--- Drop column of table
-ALTER TABLE vote_counts
-DROP COLUMN batch_margin;
-
-
--- Add new column to table
-ALTER TABLE vote_counts 
-ADD COLUMN batch_margin integer NOT NULL
-DEFAULT 10;
-
--- Insert data
-UPDATE vote_counts
-SET batch_margin = subquery.batch_margin
-FROM (
-		select mg.batch_id, (mg.biden_votes - mg.trump_votes) as batch_margin
-		from public.margins as mg) as subquery
-WHERE vote_counts.batch_id = subquery.batch_id;
-
-
--- Check if data was updated
--- should probably make a summarized table
-select * from vote_counts;
-
-
-
-
+--////////////////////////////////////////////////////
+-- This set of queries uses the vote_counts table
 
 
 -- Total Votes
@@ -51,8 +27,6 @@ select
 	(select sum(v.votes) from vote_counts as v where v.candidate = 'Trump' AND v.state = 'Alabama')
    -  (select sum(v.votes) from vote_counts as v where v.candidate = 'Biden' AND v.state = 'Alabama')	
 	as "Vote Margin";
-
-
 
 -- Batch votes by time
 select v.datetime, v.votes from  vote_counts as v
@@ -102,6 +76,3 @@ with data as (
 	LIMIT 1
 )
 update vote_counts set votes = votes + 10
-
-
-
