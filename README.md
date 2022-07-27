@@ -56,7 +56,7 @@ The data comes in a very complicated structure that needs to be broken down into
 <br>
 
 After origanizing the data and using regular expressions to extract out the values from the text, the data forms two data frames.
-![State Summary](./images/extracted_state_summary.png)
+![State Summary](./images/extracted_state_summary.png)  
 <cite>Fig 2. State Summary Information</cite>  
 
 <br>
