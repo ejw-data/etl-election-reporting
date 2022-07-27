@@ -51,9 +51,20 @@ The dataset was obtained from:
 The data comes in a very complicated structure that needs to be broken down into separate columns.  Below is an example of what one state's data looks like initially:
  
 ![Original Data](./images/scraped_data.png)  
+<cite>Fig 1. Original Data</cite>  
+
+<br>
+
 After origanizing the data and using regular expressions to extract out the values from the text, the data forms two data frames.
 ![State Summary](./images/extracted_state_summary.png)
+<cite>Fig 2. State Summary Information</cite>  
+
+<br>
+
 ![State Batch Records](./images/extracted_state_batch_data.png)
+<cite>Fig 3. State Batch Records</cite> 
+
+<br>
 
 Some of the data manipulations include:
 *  Removing zeros from the 'Change' column
@@ -63,6 +74,9 @@ Some of the data manipulations include:
 
 In the end, the following table was generated.  
 ![Developed Dataframe](./images/accum_votes_added.png)
+<cite>Fig 4. Final Dataframe</cite>  
+
+<br>
 
 The last part of the notebook sets up a final dataframe that is in a good format for a relational database.  The format is just a simple table with 4 columns - time of batch records, Trump votes, Biden votes, and state.  In the future I would love to add the district and maybe assign some metadata to that district so I can have more specific data extraction.  Right now I do not have the distric or type information which is a bit disappointing since macro scale data is not as interesting when doing an analysis.  All other summarizies can be derived from this simple data structure.  
 
@@ -71,6 +85,11 @@ The last part of the notebook sets up a final dataframe that is in a good format
 With SQL, the following are examples of queries written to extract data from the two tables.  
 
 One table was generated from a query since this data would be considered very common.  This table ('margin_info') has the following columns:  'batch_id', 'datetime', 'state', 'biden_votes', 'trump_votes', 'batch_margin'.  The main difference in this table compared to the original table is that the data has been pivoted such that instead of having a row of biden data and a row of trump data for the same time period, those values have been put into their own column and the margin difference has also been calculated.  
+
+![Margin info table](./images/margin_info_table.png)
+<cite>Fig 5. Derived `margin_info` table</cite>  
+
+<br>  
 
 **Note**:  This table creation may seem trivial but I created this structure since I believe it is a very common process.  It makes sense to collect data in a table for records in rows so that each time a new row comes in then it can be logged.  Then periodically the individual records will go through a processing event where records are summarized in a table where sorting or aggregation or a combination of the two will be needed to get a more readable and useable data structure.   
 
@@ -83,8 +102,15 @@ Here are some of the key queries:
   *  Total votes per state
   *  Percent of total votes cast per state
   *  Filter records by time period
-  *  Modify records via a calculation (not normally used but for practice)
+  *  Modify records via a calculation (not normally used but for practice)  
 
+![Accumulated Votes](./images/accumulated_votes_margin_info_table.png)
+<cite>Fig 6. Accumulated Values By State (Alabama)</cite>  
+
+<br>
+
+![Total Vote Percent](./images/state_percent_of_total_votes.png)
+<cite>Fig 7. Percent of Total Votes Cast</cite> 
 <br>
 
 ## Python Setup and Installation  
