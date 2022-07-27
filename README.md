@@ -86,7 +86,7 @@ With SQL, the following are examples of queries written to extract data from the
 
 One table was generated from a query since this data would be considered very common.  This table ('margin_info') has the following columns:  'batch_id', 'datetime', 'state', 'biden_votes', 'trump_votes', 'batch_margin'.  The main difference in this table compared to the original table is that the data has been pivoted such that instead of having a row of biden data and a row of trump data for the same time period, those values have been put into their own column and the margin difference has also been calculated.  
 
-![Margin info table](./images/margin_info_table.png)
+![Margin info table](./images/margin_info_table.png)  
 <cite>Fig 5. Derived `margin_info` table</cite>  
 
 <br>  
@@ -109,8 +109,9 @@ Here are some of the key queries:
 
 <br>
 
-![Total Vote Percent](./images/state_percent_of_total_votes.png)
-<cite>Fig 7. Percent of Total Votes Cast</cite> 
+![Total Vote Percent](./images/state_percent_of_total_votes.png)  
+<cite>Fig 7. Percent of Total Votes Cast</cite>   
+
 <br>
 
 ## Python Setup and Installation  
