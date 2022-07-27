@@ -74,14 +74,16 @@ One table was generated from a query since this data would be considered very co
 
 **Note**:  This table creation may seem trivial but I created this structure since I believe it is a very common process.  It makes sense to collect data in a table for records in rows so that each time a new row comes in then it can be logged.  Then periodically the individual records will go through a processing event where records are summarized in a table where sorting or aggregation or a combination of the two will be needed to get a more readable and useable data structure.   
 
-
-
-
-
-
-
-
-
+Here are some of the key queries:  
+  *  Accumulated values and percents for a specifc state
+  *  Vote totals for election as a whole, for Biden, for Trump
+  *  Votes for each candidate for a specific state
+  *  Votes for a candidate grouped by all states
+  *  Final vote margins by a specific state
+  *  Total votes per state
+  *  Percent of total votes cast per state
+  *  Filter records by time period
+  *  Modify records via a calculation (not normally used but for practice)
 
 <br>
 

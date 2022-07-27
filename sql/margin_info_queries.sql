@@ -1,7 +1,10 @@
 --///////////////////////////////////////////////
 -- Queries for the margin_info table
 
--- Cumulative/Running total
+-- Show entire table
+select * from margin_info;
+
+-- Cumulative/Running total of batches over time
 with data as (
 	select 
 		datetime as date,
@@ -19,9 +22,9 @@ select
 select * from margin_info
 where state = 'Alabama';
 
---////////////////////////////////////////////////////
--- Uses margin_info table
--- Add Biden votes
+
+-- Accumulated values and percents for only Alabama
+-- Last row is the final vote totals for both candidates
 with data as (
 	select 
 		datetime as date,
