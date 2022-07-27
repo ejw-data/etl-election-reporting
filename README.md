@@ -12,7 +12,8 @@ Author:  Erin James Wills, ejw.data@gmail.com
 
 >Used pandas to resolve discrepencies in real-time election poll results and moved data to postgres.   
 
-I have always found election poll results to be interesting since there are always unexpected results despite the number of polls performed prior to the election.  When looking at data that was published by the Associated Press, I noticed that the data released as results came in during election night was much messier than expected and often times had obviously incorrect data (or I initially presumed it to be false).  
+I have always found election poll results to be interesting since there are always unexpected results despite the number of polls performed prior to the election.  When looking at data that was published by the Associated Press, I noticed that the data released as results came in during election night was much messier than expected and often times had obviously incorrect data (or I initially presumed it to be false).   
+
 The data was coming from Associated Press releases who got their information from the state election boards and was information distributed through the New York Times API.  There is already a nice Github repo that has the 2020 Presendential election results.  Some of the reason for the odd data is that:  
 *  the information was not typed in correctly to the state updates that come from websites and twitter.  
 *  the new update combines data from a previous update but people are unaware.
@@ -21,11 +22,12 @@ The data was coming from Associated Press releases who got their information fro
 > Remember that none of this information is official on election night and usually several days go by before an official number is published.  
 
 The goals are:
-1.  create a jupyter notebook to identify records that do not make sense and see if merging these results with other rows will resolve the inconsistency.  Essentially, I am reducing the number of reported poll batches so the errors do not have an effect.  
-2.  generate a dataset that is consistent so I can develop graphics and predictions based on the data as it is updated.
+1.  create a jupyter notebook to identify records that do not make sense and see if merging these results with other rows will resolve the inconsistency.  Essentially, I am reducing the number of reported poll reports (batches) so the errors do not have an effect.  
+2.  generate a dataset that is consistent 
 3.  store the data in a postgreSQL database and develop queries that could be used for generating a report. 
+4.  develop graphics and predictions based on the data that are time dependent (as if the results were being streamed and constantly updating).  
 
-**Note:**  I mostly want realistic data for parts 2 and 3.  The first goal is to resolve most of the issues to have a believeable dataset.
+**Note:**  I mostly want realistic data for parts 3 and 4.  The first goal is to resolve most of the issues to have a believeable dataset.  The last goal (#4) is not a high priority right now.  Goals 1 through 3 are to demonstrate the ETL process.
 
 <br>
 
@@ -40,11 +42,35 @@ The goals are:
 The dataset was obtained from:  
 *  [https://alex.github.io/nyt-2020-election-scraper/all-state-changes.html](https://alex.github.io/nyt-2020-election-scraper/all-state-changes.html)  
 
-**Note**:  The site data may be overwritten during each election.
+<br>
+
+**Note**:  The site data may be overwritten during each election.  The pickle file contains the data from the 2020 election and was captured in 2022 after no new results were being published.  
 
 <br>
 
-## Analysis
+## Analysis  
+
+Overall the first goal (resolve data errors) was accomplished.  The inconsistencies in the data were removed and method used to merge records created consistent data without distorting the actual results; it essentialy resulted in a loss of granularity while keeping the original granularity for most of the data.  
+
+To evaluate the quality of the data for the second goal (show consistency across the dataset) and third goal (add content to database), the database query results were compared to the official results.  The data from the database showed good precision.  The table below shows a few results.  
+
+The fourth goal (create time-dependent graphics) has not been started but the data preparation for it is complete.  
+
+| Query         |  Query Result         |   Official Result  |
+| ------------- | --------------------- | ------------------ |
+| Total Votes Nationally | 155,505,907  | 155,485,078        |
+| Total Votes Biden      | 81,243,830   | 81,268,924         |
+| Total Votes Trump      | 74,262,077   | 74,216,154         |
+| Total Votes Alabama Biden |  849,624  | 849,624            |
+| Total Votes Alabama Trump | 1,441,170 | 1,441,170          |
+| Final Vote Margin Alabama | 591,546   | 591,546            |
+
+<br>
+
+## Results (examples)
+
+Below are some details about the data process but details can be found in the commented jupyter notebook and SQL files.  
+<br>
 
 ### Notebook 
 
